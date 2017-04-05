@@ -29,8 +29,8 @@ class PCHeader extends React.Component {
 		};
 	};
 
-	componentWillMount() {
-		if (localStorage.userid != "") {
+	componentWillMount(){
+		if (localStorage.userid!='') {
 			this.setState({hasLogined:true});
 			this.setState({userNickName:localStorage.userNickName,userid:localStorage.userid});
 		}
@@ -44,11 +44,12 @@ class PCHeader extends React.Component {
 		if (e.key == "register") {
 			this.setState({current: 'register'});
 			this.setModalVisible(true);
-		} else {			
-			this.setState({current: e.key});			
+		} else {
+			{
+				this.setState({current: e.key});
+			}
 		}
 	};
-
 	handleSubmit(e)
 	{
 		//页面开始向 API 进行提交数据
@@ -66,7 +67,7 @@ class PCHeader extends React.Component {
 		.then(response => response.json())
 		.then(json => {
 			this.setState({userNickName: json.NickUserName, userid: json.UserId});
-			localStorage.userid = json.UserId;
+			localStorage.userid= json.UserId;
 			localStorage.userNickName = json.NickUserName;
 		});
 		if (this.state.action=="login") {
@@ -75,7 +76,6 @@ class PCHeader extends React.Component {
 		message.success("请求成功！");
 		this.setModalVisible(false);
 	};
-
 	callback(key) {
 		if (key == 1) {
 			this.setState({action: 'login'});
@@ -83,20 +83,18 @@ class PCHeader extends React.Component {
 			this.setState({action: 'register'});
 		}
 	};
-
-	logout() {
-		localStorage.userid = '';
+	logout(){
+		localStorage.userid= '';
 		localStorage.userNickName = '';
 		this.setState({hasLogined:false});
 	};
-
 	render() {
 		let {getFieldProps} = this.props.form;
 		const userShow = this.state.hasLogined
 			? <Menu.Item key="logout" class="register">
 					<Button type="primary" htmlType="button">{this.state.userNickName}</Button>
 					&nbsp;&nbsp;
-					<Link target="_blank">
+					<Link target="_blank" to={`/usercenter`}>
 						<Button type="dashed" htmlType="button">个人中心</Button>
 					</Link>
 					&nbsp;&nbsp;
@@ -112,7 +110,7 @@ class PCHeader extends React.Component {
 					<Col span={4}>
 						<a href="/" class="logo">
 							<img src="./src/images/logo.png" alt="logo"/>
-							<span>新闻列表</span>
+							<span>ReactNews</span>
 						</a>
 					</Col>
 					<Col span={16}>
