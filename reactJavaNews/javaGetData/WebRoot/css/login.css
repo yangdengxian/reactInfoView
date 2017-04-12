@@ -1,0 +1,25 @@
+*{
+	margin:0;
+	padding:0;
+}
+body{
+    background-color:#DDE4E8;
+	font-size:12px;
+	font-family:"微软雅黑";
+	overflow-x:hidden;
+}
+#loginContainer{
+	width: 1000px;
+	margin: 0 auto;
+}
+#loginForm{
+	width: 300px;
+	margin: 200px auto;
+	border: 1px solid red;
+}
+#loginForm span{
+	text-align: right;
+}
+#loginForm #userName,#password{
+	width: 170px;
+}
