@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONArray;
-import com.ydx.search.bean.Image;
 import com.ydx.search.util.SearchNewsUtil;
-import com.ydx.search.util.SearchUtil;
 
 public class NewsInfoServlet extends HttpServlet {
 
@@ -59,9 +57,14 @@ public class NewsInfoServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setHeader("Access-Control-Allow-Origin", "*");  
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");  
+        response.setHeader("Access-Control-Allow-Headers", "token,Access-Control-Allow-Origin,Access-Control-Allow-      Methods,Access-Control-Max-Age,authorization");
 		String type = request.getParameter("type");
 		String key = request.getParameter("key");
-		List<Object> listData = SearchNewsUtil.queryList(type,key);
+		int count = Integer.parseInt(request.getParameter("count"));
+		List<Object> listData = SearchNewsUtil.queryList(type,key,count);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(JSONArray.toJSONString(listData, true));

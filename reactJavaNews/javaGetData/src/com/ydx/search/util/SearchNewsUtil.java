@@ -1,5 +1,6 @@
 package com.ydx.search.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,20 +22,21 @@ import com.alibaba.fastjson.JSONObject;
 public class SearchNewsUtil {
 	private static Map<String, String> urls = new HashMap<String, String>();
 	static {
-		urls.put("top", "http://v.juhe.cn/toutiao/index"); // 鎵�湁		
+		urls.put("news", "http://v.juhe.cn/toutiao/index"); // 鎵�湁		
 	}
 
 	/**
 	 * 鏍规嵁鍥剧墖绫诲瀷鍜屽浘鐗囨樉绀洪〉鐮佹煡璇㈠浘鐗�
 	 * 
-	 * @param category
-	 *            鍥剧墖绫诲瀷
-	 * @param pageNum
+	 * @param dataType
+	 *            数据类型
+	 * @param type
 	 *            鍥剧墖鏄剧ず椤电爜
 	 */
-	public static List<Object> queryList(String type,String key) {
-		String url = urls.get(type);
-		List<Object> list = null;
+	@SuppressWarnings("null")
+	public static List<Object> queryList(String type,String key,int count) {
+		String url = urls.get("news");
+		List<Object> list = new ArrayList<Object>();
 		try {
 			HashMap<String,String> map = new HashMap<String,String>();
 			map.put("type", type);
@@ -43,12 +45,20 @@ public class SearchNewsUtil {
 			Element body = doc.body();
 			JSONObject jsonAll = JSONObject.parseObject(body.text());
 			JSONObject jsonData = JSONObject.parseObject(String.valueOf(jsonAll.get("result")));
-			list = JSONArray.parseArray(String.valueOf(jsonData.get("data")));			
+			if (count > 0) {
+				for (int i=0; i < count; i++) {
+					list.add(JSONArray.parseArray(String.valueOf(jsonData.get("data"))).get(i));
+				}
+			} 				
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public static void main(String[] args) {
+		queryList("top","465f9be9bafef783f15a46d25f35880d",6);
 	}
 
 	

@@ -1,43 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" 
-	xmlns="http://java.sun.com/xml/ns/javaee" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<!-- 引入外部xml文件 -->
+<!DOCTYPE web-app[
+<!ENTITY common_web SYSTEM "classes/resources/common/common_web.xml">
+<!ENTITY common_servlet SYSTEM "classes/resources/common/common_servlet.xml">
+]>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>GetImagesServlet</servlet-name>
-    <servlet-class>com.ydx.search.servlet.GetImagesServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.ydx.search.servlet.LoginServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>NewsInfoServlet</servlet-name>
-    <servlet-class>com.ydx.search.servlet.NewsInfoServlet</servlet-class>
-  </servlet>
+	<!-- Spring MVC配置 -->
+	<!-- ====================================== -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		    /WEB-INF/classes/resources/spring/spring-config.xml
+		    /WEB-INF/spring-servlet.xml
+		</param-value>
+	</context-param>
 
+	<!-- 引入公共配置文件 -->
+	&common_web;
+	<!-- 引入公共servlet文件 -->
+	&common_servlet;
 
-
-  <servlet-mapping>
-    <servlet-name>GetImagesServlet</servlet-name>
-    <url-pattern>/GetImagesServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>NewsInfoServlet</servlet-name>
-    <url-pattern>/NewsInfoServlet</url-pattern>
-  </servlet-mapping>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
 </web-app>

@@ -1,0 +1,22 @@
+
+  <servlet>
+    <description>LoginServlet</description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.ydx.search.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>NewsInfoServlet</description>
+    <display-name>NewsInfoServlet</display-name>
+    <servlet-name>NewsInfoServlet</servlet-name>
+    <servlet-class>com.ydx.search.servlet.NewsInfoServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NewsInfoServlet</servlet-name>
+    <url-pattern>/NewsInfoServlet</url-pattern>
+  </servlet-mapping>
