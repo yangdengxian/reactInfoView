@@ -2,7 +2,6 @@
 <!-- 引入外部xml文件 -->
 <!DOCTYPE web-app[
 <!ENTITY common_web SYSTEM "classes/resources/common/common_web.xml">
-<!ENTITY common_servlet SYSTEM "classes/resources/common/common_servlet.xml">
 ]>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -20,8 +19,6 @@
 
 	<!-- 引入公共配置文件 -->
 	&common_web;
-	<!-- 引入公共servlet文件 -->
-	&common_servlet;
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
