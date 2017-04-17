@@ -15,12 +15,12 @@ import com.ydx.search.util.SearchNewsUtil;
 @RequestMapping(value = "/newsData")
 public class NewsDataController {
 	/**
-	 * »ñÈ¡ĞÂÎÅÊı¾İ
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param request
 	 * @param response
-	 * @param type ĞÂÎÅÀàĞÍ
-	 * @param key ÃÜ³×
-	 * @param count ÏÔÊ¾ÊıÁ¿
+	 * @param type ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param key ï¿½Ü³ï¿½
+	 * @param count ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	@RequestMapping("/getNewsData.do")
@@ -32,12 +32,12 @@ public class NewsDataController {
         }
 		List<Object> listData = SearchNewsUtil.queryList(type,key,count);
 		System.out.println(JSONArray.toJSONString(listData, true));
-		response.setContentType("application/json;charset=UTF-8");//·ÀÖ¹Êı¾İ´«µİÂÒÂë
+		response.setContentType("application/json;charset=UTF-8");//ï¿½ï¿½Ö¹ï¿½ï¿½İ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return JSONArray.toJSONString(listData, true);
 	}
 	
 	/**
-	 * »ñÈ¡ÏêÏ¸ĞÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½Ï¸ï¿½ï¿½Ï¢
 	 * @param request
 	 * @param response
 	 * @param uniquekey Î¨Ò»Öµ
@@ -55,8 +55,10 @@ public class NewsDataController {
         return null;
 	}
 	
+	
+	
 	/**
-	 * ÉèÖÃ¿çÓò
+	 * ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½
 	 * @param response
 	 */
 	private void setCorsResponse(HttpServletResponse response) {
