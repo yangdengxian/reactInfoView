@@ -15,50 +15,47 @@ import com.ydx.search.util.SearchNewsUtil;
 @RequestMapping(value = "/newsData")
 public class NewsDataController {
 	/**
-	 * ��ȡ�������
+	 * 锟斤拷取锟斤拷锟斤拷锟斤拷锟�
 	 * @param request
 	 * @param response
-	 * @param type ��������
-	 * @param key �ܳ�
-	 * @param count ��ʾ����
+	 * @param type 锟斤拷锟斤拷锟斤拷锟斤拷
+	 * @param key 锟杰筹拷
+	 * @param count 锟斤拷示锟斤拷锟斤拷
 	 * @return
 	 */
 	@RequestMapping("/getNewsData.do")
 	@ResponseBody
-	public String getNewsData(HttpServletRequest request,HttpServletResponse response,String type,String key,int count) {
+	public List<Object> getNewsData(HttpServletRequest request,HttpServletResponse response,String type,int count) {
 		setCorsResponse(response);
-        if (null == type && null == key) {
+        if (null == type) {
         	return null;
         }
-		List<Object> listData = SearchNewsUtil.queryList(type,key,count);
-		System.out.println(JSONArray.toJSONString(listData, true));
-		response.setContentType("application/json;charset=UTF-8");//��ֹ��ݴ�������
-		return JSONArray.toJSONString(listData, true);
+		List<Object> listData = SearchNewsUtil.queryList(type,count);
+		return listData;
 	}
 	
 	/**
-	 * ��ȡ��ϸ��Ϣ
+	 * 锟斤拷取锟斤拷细锟斤拷息
 	 * @param request
 	 * @param response
-	 * @param uniquekey Ψһֵ
+	 * @param uniquekey 唯一值
 	 * @return
 	 */
 	@RequestMapping("/getNewsDetails.do")
 	@ResponseBody
-	public String getNewsDetails(HttpServletRequest request,HttpServletResponse response,String uniquekey) {
+	public List<Object> getNewsDetails(HttpServletRequest request,HttpServletResponse response,String uniquekey) {
 		setCorsResponse(response);
         if (null == uniquekey) {
         	return null;
         }
-		/*List<Object> listData = SearchNewsUtil.queryList(type,key,count);
-		return JSONArray.toJSONString(listData, true);*/
-        return null;
+		List<Object> listData = SearchNewsUtil.queryDetails(uniquekey);
+        return listData;
 	}
 	
 	
 	
 	/**
-	 * ���ÿ���
+	 * 锟斤拷锟矫匡拷锟斤拷
 	 * @param response
 	 */
 	private void setCorsResponse(HttpServletResponse response) {

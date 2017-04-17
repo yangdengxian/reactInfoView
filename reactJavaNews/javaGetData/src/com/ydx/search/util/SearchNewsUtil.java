@@ -33,14 +33,13 @@ public class SearchNewsUtil {
 	 * @param type
 	 *            鍥剧墖鏄剧ず椤电爜
 	 */
-	@SuppressWarnings("null")
-	public static List<Object> queryList(String type,String key,int count) {
+	public static List<Object> queryList(String type,int count) {
 		String url = urls.get("news");
 		List<Object> list = new ArrayList<Object>();
 		try {
 			HashMap<String,String> map = new HashMap<String,String>();
-			map.put("type", type);
-			map.put("key", key);
+			map.put("type", "");
+			map.put("key", PropertiesUtil.getValue("key"));
 			Document doc = Jsoup.connect(url).ignoreContentType(true).data(map).timeout(10000).get();
 			Element body = doc.body();
 			JSONObject jsonAll = JSONObject.parseObject(body.text());
@@ -57,9 +56,34 @@ public class SearchNewsUtil {
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		queryList("top","465f9be9bafef783f15a46d25f35880d",6);
-	}
 
+	public static List<Object> queryDetails(String uniquekey) {
+		String url = urls.get("news");
+		List<Object> list = new ArrayList<Object>();
+		try {
+			HashMap<String,String> map = new HashMap<String,String>();
+			map.put("type", "");
+			map.put("key", PropertiesUtil.getValue("key"));
+			Document doc = Jsoup.connect(url).ignoreContentType(true).data(map).timeout(10000).get();
+			Element body = doc.body();
+			JSONObject jsonAll = JSONObject.parseObject(body.text());
+			JSONObject jsonData = JSONObject.parseObject(String.valueOf(jsonAll.get("result")));
+			JSONArray jsonArray = JSONArray.parseArray(String.valueOf(jsonData.get("data")));
+
+			for (int i=0; i < jsonArray.size(); i++) {
+				JSONObject obj = JSONObject.parseObject(jsonArray.get(i).toString());
+				if (uniquekey.equals(obj.get("uniquekey"))) {
+					Document docPage = Jsoup.connect(obj.get("url").toString()).ignoreContentType(true).timeout(10000).get();
+					obj.put("pagecontent", docPage.body().toString());
+					list.add(obj);
+				}				
+			}
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 }
