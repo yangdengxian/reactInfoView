@@ -52,29 +52,38 @@ class PCHeader extends React.Component {
 	};
 	handleSubmit(e)
 	{
+		debugger;
 		//页面开始向 API 进行提交数据
 		e.preventDefault();
 		var myFetchOptions = {
 			method: 'GET'
 		};
 		var formData = this.props.form.getFieldsValue();
-		console.log(formData);
-		fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
-		+ "&username="+formData.userName+"&password="+formData.password
-		+"&r_userName=" + formData.r_userName + "&r_password="
-		+ formData.r_password + "&r_confirmPassword="
-		+ formData.r_confirmPassword, myFetchOptions)
+		var url = "";
+
+		if (this.state.action == "login") {
+			url = "http://localhost:8082/javaGetData/login.do?username="
+				+formData.userName+"&password="+formData.password;
+		} else {
+			url = "http://localhost:8082/javaGetData/register.do?username=" 
+				+ formData.r_userName + "&password="
+				+ formData.r_password + "&confirmPassword="
+				+ formData.r_confirmPassword;
+		}
+
+		fetch(url, myFetchOptions)
 		.then(response => response.json())
 		.then(json => {
-			this.setState({userNickName: json.NickUserName, userid: json.UserId});
-			localStorage.userid= json.UserId;
-			localStorage.userNickName = json.NickUserName;
+			this.setState({userNickName: json.username, userid: json.id});
+			localStorage.userid= json.id;
+			localStorage.userNickName = json.username;
+			if (this.state.action=="login") {
+				this.setState({hasLogined:true});
+			}
+			message.success("请求成功！");
+			this.setModalVisible(false);
 		});
-		if (this.state.action=="login") {
-			this.setState({hasLogined:true});
-		}
-		message.success("请求成功！");
-		this.setModalVisible(false);
+		
 	};
 	callback(key) {
 		if (key == 1) {

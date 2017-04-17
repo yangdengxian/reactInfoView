@@ -16,8 +16,8 @@ export default class PCNewsDetails extends React.Component {
 		var myFetchOptions = {
 			method: 'GET'
 		};
-		fetch("http://localhost:8082/javaGetData/newsData/getNewsData.do?uniquekey=" + this.props.params.uniquekey, myFetchOptions).then(response => response.json()).then(json => {
-			this.setState({newsItem: json});
+		fetch("http://localhost:8082/javaGetData/newsData/getNewsDetails.do?uniquekey=" + this.props.params.uniquekey, myFetchOptions).then(response => response.json()).then(json => {
+			this.setState({newsItem: json[0]});
 			document.title = this.state.newsItem.title + " - React News | React 驱动的新闻平台";
 		});
 	};

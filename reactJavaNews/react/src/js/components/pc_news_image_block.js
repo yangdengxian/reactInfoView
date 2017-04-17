@@ -12,7 +12,7 @@ export default class PCNewsImageBlock extends React.Component {
 		var myFetchOptions = {
 			method: 'GET'
 		};
-		fetch("http://localhost:8082/javaGetData/newsData/getNewsData.do?type=" + this.props.type + "&key=465f9be9bafef783f15a46d25f35880d&count=" + this.props.count, myFetchOptions).then(response => response.json()).then(json => this.setState({news: json}));
+		fetch("http://localhost:8082/javaGetData/newsData/getNewsData.do?type=" + this.props.type + "&count=" + this.props.count, myFetchOptions).then(response => response.json()).then(json => this.setState({news: json}));
 		console.log(this.state.news);	
 	};
 	render() {
